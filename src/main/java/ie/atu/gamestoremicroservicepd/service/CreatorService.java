@@ -1,7 +1,6 @@
 package ie.atu.gamestoremicroservicepd.service;
 
 import ie.atu.gamestoremicroservicepd.model.Creator;
-import ie.atu.gamestoremicroservicepd.model.Game;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,14 +9,12 @@ import java.util.List;
 @Service
 public class CreatorService {
     private final List<Creator> creators = new ArrayList<>();
+    private long nextId = 1;
 
-    public void existingCreators(Creator creator) {
-        creator.createCreatorAccount(1, "Mojang", "mojang@gameStore.com", "Minecraft1");
+    public Creator addCreator(Creator creator){
+        creator.setCreatorId(nextId++);
         creators.add(creator);
-        creator.createCreatorAccount(2, "Valve", "valve@gameStore.com", "Steam1");
-        creators.add(creator);
-        creator.createCreatorAccount(3, "Nintendo", "nintendo@gameStore.com", "Mario1");
-        creators.add(creator);
+        return creator;
     }
 
     public List<Creator> getListOfCreators(){

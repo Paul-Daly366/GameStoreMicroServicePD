@@ -1,6 +1,8 @@
 package ie.atu.gamestoremicroservicepd.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,20 +10,15 @@ import lombok.Setter;
 @Setter
 public class Creator {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    private int creatorId;
+    private Long creatorId;
 
-
+    @NotBlank(message = "Name cannot be left blank.")
     private String creatorName;
 
+    @Email(message = "Email must be a valid email.")
     private String creatorEmail;
 
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    //@Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    @NotBlank(message = "Password cannot be left blank.")
     private String creatorPassword;
-
-    public void createCreatorAccount(int creatorId, String creatorName, String creatorEmail, String creatorPassword) {
-        this.creatorId=creatorId;
-        this.creatorName=creatorName;
-        this.creatorEmail=creatorEmail;
-        this.creatorPassword=creatorPassword;
-    }
 }
