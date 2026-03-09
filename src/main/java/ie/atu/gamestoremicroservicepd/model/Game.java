@@ -12,12 +12,12 @@ public class Game {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
-    @NotBlank(message = "Game name is required")
+    @NotBlank(message = "Game name cannot be left blank.")
     private String name;
 
-    @Positive(message = "Price must be greater than zero")
+    @Positive(message = "Price must be greater than zero.")
     private double price;
 
-    @NotBlank(message = "Game publisher is required")
+    @NotBlank(message = "Game publisher cannot be left blank.")
     private String publisher;
 }
