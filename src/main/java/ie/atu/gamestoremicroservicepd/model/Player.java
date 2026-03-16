@@ -12,7 +12,6 @@ public class Player {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @NotBlank(message = "Player name cannot be left blank.")
     private String name;
 
@@ -21,7 +20,7 @@ public class Player {
 
     private double credit = 0;
 
-    @NotBlank(message = "Email cannot be left blank.")
-    private String email;
+    //@NotBlank(message = "Email cannot be left blank.")
+    //private String email;
 
 }

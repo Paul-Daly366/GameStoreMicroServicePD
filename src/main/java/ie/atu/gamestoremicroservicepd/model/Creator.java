@@ -17,8 +17,4 @@ public class Creator {
 
     @Email(message = "Email must be a valid email.")
     private String creatorEmail;
-
-    //@Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    @NotBlank(message = "Password cannot be left blank.")
-    private String creatorPassword;
 }
