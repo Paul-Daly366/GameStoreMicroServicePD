@@ -27,6 +27,6 @@ public class CreatorController {
 
     @GetMapping
     public ResponseEntity<List<Creator>> getAllCreators() {
-        return ResponseEntity.ok(creatorService.getListOfCreators());
+        return ResponseEntity.ok(creatorService.getAllCreators());
     }
 }

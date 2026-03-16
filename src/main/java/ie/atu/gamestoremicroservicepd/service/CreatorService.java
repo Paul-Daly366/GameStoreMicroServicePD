@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public class CreatorService {
+
     private final List<Creator> creators = new ArrayList<>();
     private long nextId = 1;
 
@@ -17,7 +18,7 @@ public class CreatorService {
         return creator;
     }
 
-    public List<Creator> getListOfCreators(){
+    public List<Creator> getAllCreators(){
         return creators;
     }
 
