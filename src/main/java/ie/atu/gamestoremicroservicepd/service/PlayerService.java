@@ -26,9 +26,9 @@ public class PlayerService {
         return players.get(id);
     }
 
-    public Player addCredit(double credit, int id){
+    /*public Player addCredit(double credit, int id){
         Player temp = players.getPlayerById(id);
         temp.setCredit(temp.getCredit() + credit);
         return temp;
-    }
+    }*/
 }
