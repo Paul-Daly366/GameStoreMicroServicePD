@@ -1,6 +1,8 @@
 package ie.atu.gamestoremicroservicepd.service;
 
 import ie.atu.gamestoremicroservicepd.model.Player;
+import ie.atu.gamestoremicroservicepd.repository.PlayerRepo;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,22 +11,25 @@ import java.util.List;
 @Service
 public class PlayerService {
 
-    private final List<Player> players = new ArrayList<>();
-    private long nextId = 1;
+    private List<Player> players;
+    private final PlayerRepo playerRepo;
 
-    public Player addPlayer(Player player){
-        player.setId(nextId++);
-        players.add(player);
+    public PlayerService(PlayerRepo playerRepo) {
+        this.playerRepo = playerRepo;
+    }
+
+    public Player addPlayer(@Valid Player player){
+        playerRepo.save(player);
         return player;
     }
 
     public List<Player> getAllPlayers(){
-        return players;
+        return playerRepo.findAll();
     }
 
-    public Player getPlayerById(int id){
-        return players.get(id);
-    }
+    /*public Player getPlayerById(long id){
+        return playerRepo.findById(id);
+    }*/
 
     /*public Player addCredit(double credit, int id){
         Player temp = players.getPlayerById(id);
