@@ -18,7 +18,7 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    private Long id;
+    private Long playerId;
 
     @NotBlank(message = "Player name cannot be left blank.")
     private String name;

@@ -27,13 +27,14 @@ public class PlayerService {
         return playerRepo.findAll();
     }
 
-    /*public Player getPlayerById(long id){
-        return playerRepo.findById(id);
-    }*/
+    public Player getPlayerById(long playerId){
+        return playerRepo.findByPlayerId(playerId);
+    }
 
-    /*public Player addCredit(double credit, int id){
-        Player temp = players.getPlayerById(id);
-        temp.setCredit(temp.getCredit() + credit);
-        return temp;
-    }*/
+    public double addCredit(double credit, Long playerId){
+        Player temp = playerRepo.findByPlayerId(playerId);
+        temp.setCredit(temp.getCredit()+credit);
+        playerRepo.save(temp);
+        return temp.getCredit();
+    }
 }

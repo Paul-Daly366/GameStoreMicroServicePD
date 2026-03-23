@@ -34,8 +34,8 @@ public class PlayerController {
         return ResponseEntity.status(HttpStatus.OK).body(playerService.getPlayerById(id));
     }
 
-    /*@GetMapping("/addCredit/{id}/{credit}")
-    public ResponseEntity<String> addCredit(@PathVariable("id") int id,@PathVariable("credit") int credit) {
-        return ResponseEntity.ok(playerService.addCredit(credit,id));
-    }*/
+    @GetMapping("/addCredit/{playerId}&{credit}")
+    public ResponseEntity<Double> addCredit(@PathVariable("id") Long playerId,@PathVariable("credit") int credit) {
+        return ResponseEntity.ok(playerService.addCredit(credit,playerId));
+    }
 }
