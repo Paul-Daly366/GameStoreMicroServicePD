@@ -19,6 +19,7 @@ public class GameService {
 
     public Game addGame(Game game){
         //Confirm the name doesn't already exist
+        //Not allowing multiples games with the same name, for copyright and player ease of use
         games = gameRepo.findAll();
         for (Game existing : games) {
             if (existing.getGameName().equals(game.getGameName())) {
