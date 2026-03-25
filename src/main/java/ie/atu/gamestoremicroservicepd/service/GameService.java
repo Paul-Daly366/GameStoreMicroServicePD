@@ -1,6 +1,6 @@
 package ie.atu.gamestoremicroservicepd.service;
 
-import ie.atu.gamestoremicroservicepd.exception.NameAlreadyExistsException;
+import ie.atu.gamestoremicroservicepd.exception.NameConflictException;
 import ie.atu.gamestoremicroservicepd.model.Game;
 import ie.atu.gamestoremicroservicepd.repository.GameRepo;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class GameService {
         games = gameRepo.findAll();
         for (Game existing : games) {
             if (existing.getName().equals(game.getName())) {
-                throw new NameAlreadyExistsException("Game name already exists");
+                throw new NameConflictException("Game name already exists");
             }
         }
         gameRepo.save(game);

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/creator")
+@RequestMapping("/creators")
 public class CreatorController {
 
     private final CreatorService creatorService;
@@ -25,8 +25,23 @@ public class CreatorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Creator>> getAllCreators() {
         return ResponseEntity.ok(creatorService.getAllCreators());
+    }
+
+    @GetMapping("/id/{creatorId}")
+    public ResponseEntity<Creator> getCreatorById(@PathVariable("creatorId") Long creatorId){
+        return ResponseEntity.ok(creatorService.getCreatorByCreatorId(creatorId));
+    }
+
+    @GetMapping("/name/{creatorName}")
+    public ResponseEntity<Creator> getCreatorByName(@PathVariable("creatorName") String creatorName){
+        return ResponseEntity.ok(creatorService.getCreatorByCreatorName(creatorName));
+    }
+
+    @GetMapping("/email/{creatorEmail}")
+    public ResponseEntity<Creator> getCreatorByEmail(@PathVariable("creatorEmail") String creatorEmail){
+        return ResponseEntity.ok(creatorService.getCreatorByCreatorEmail(creatorEmail));
     }
 }
