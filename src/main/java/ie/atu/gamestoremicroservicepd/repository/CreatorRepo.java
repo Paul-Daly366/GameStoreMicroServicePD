@@ -4,4 +4,7 @@ import ie.atu.gamestoremicroservicepd.model.Creator;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CreatorRepo extends JpaRepository<Creator,Long> {
+    Creator getCreatorByCreatorId(Long id);
+    Creator getCreatorByCreatorName(String name);
+    Creator getCreatorByCreatorEmail(String email);
 }

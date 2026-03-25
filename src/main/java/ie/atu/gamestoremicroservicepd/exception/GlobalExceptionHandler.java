@@ -1,5 +1,6 @@
 package ie.atu.gamestoremicroservicepd.exception;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,5 +23,10 @@ public class GlobalExceptionHandler {
             errors.put(fieldName,errorMessage);
         }
         return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler(NameConflictException.class)
+    public ResponseEntity<String> handleNameConflict(NameConflictException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 }
