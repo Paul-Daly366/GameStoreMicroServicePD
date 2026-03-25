@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/player")
+@RequestMapping("/players")
 public class PlayerController {
 
     private final PlayerService playerService;
@@ -24,18 +24,28 @@ public class PlayerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Player>> getAllPlayers() {
         return ResponseEntity.status(HttpStatus.OK).body(playerService.getAllPlayers());
     }
 
-    @GetMapping("/id/{id}")
-    public ResponseEntity<Player> getPlayerById(@PathVariable Integer id) {
-        return ResponseEntity.status(HttpStatus.OK).body(playerService.getPlayerById(id));
+    @GetMapping("/id/{playerId}")
+    public ResponseEntity<Player> getPlayerById(@PathVariable Integer playerId) {
+        return ResponseEntity.status(HttpStatus.OK).body(playerService.getByPlayerId(playerId));
     }
 
-    @GetMapping("/addCredit/{playerId}&{credit}")
+    @GetMapping("/name/{playerName}")
+    public ResponseEntity<List<Player>> getByPlayerName(@PathVariable String playerName) {
+        return ResponseEntity.status(HttpStatus.OK).body(playerService.getByPlayerName(playerName));
+    }
+
+    @GetMapping("/nickname/{nickname}")
+    public ResponseEntity<Player> getByNickname(@PathVariable String nickname) {
+        return ResponseEntity.status(HttpStatus.OK).body(playerService.getPlayerByNickname(nickname));
+    }
+
+    /*@GetMapping("/addCredit/{playerId}&{credit}")
     public ResponseEntity<Double> addCredit(@PathVariable("id") Long playerId,@PathVariable("credit") int credit) {
         return ResponseEntity.ok(playerService.addCredit(credit,playerId));
-    }
+    }*/
 }
