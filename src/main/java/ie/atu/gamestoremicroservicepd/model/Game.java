@@ -20,7 +20,7 @@ public class Game {
     private Long gameId;
 
     @NotBlank(message = "Game name cannot be left blank.")
-    private String name;
+    private String gameName;
 
     @Positive(message = "Price must be greater than zero.")
     private double price;

@@ -21,7 +21,7 @@ public class GameService {
         //Confirm the name doesn't already exist
         games = gameRepo.findAll();
         for (Game existing : games) {
-            if (existing.getName().equals(game.getName())) {
+            if (existing.getGameName().equals(game.getGameName())) {
                 throw new NameConflictException("Game name already exists");
             }
         }
@@ -29,15 +29,19 @@ public class GameService {
         return game;
     }
 
-    public Game findByGameId(Long id){
-        return gameRepo.findGameByGameId(id);
-    }
-
-    public Game findByGameName(String name){
-        return gameRepo.findGameByName(name);
-    }
-
     public List<Game> getAllGames(){
         return gameRepo.findAll();
+    }
+
+    public Game getByGameId(Long id){
+        return gameRepo.getGameByGameId(id);
+    }
+
+    public Game getByGameName(String name){
+        return gameRepo.getGameByGameName(name);
+    }
+
+    public List<Game> getGamesByPublisher(String publisher){
+        return gameRepo.getGamesByPublisher(publisher);
     }
 }

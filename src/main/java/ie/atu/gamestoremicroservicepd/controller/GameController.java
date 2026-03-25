@@ -25,8 +25,23 @@ public class GameController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Game>> getAllGames() {
         return ResponseEntity.ok(gameService.getAllGames());
+    }
+
+    @GetMapping("/id/{gameId}")
+    public ResponseEntity<Game> getGameById(@PathVariable("gameId") Long gameId) {
+        return ResponseEntity.ok(gameService.getByGameId(gameId));
+    }
+
+    @GetMapping("/name/{gameName}")
+    public ResponseEntity<Game> getGameByName(@PathVariable("gameName") String gameName) {
+        return ResponseEntity.ok(gameService.getByGameName(gameName));
+    }
+
+    @GetMapping("/publisher/{publisher}")
+    public ResponseEntity<List<Game>> getGamesByPublisher(@PathVariable("publisher") String publisher) {
+        return  ResponseEntity.ok(gameService.getGamesByPublisher(publisher));
     }
 }
