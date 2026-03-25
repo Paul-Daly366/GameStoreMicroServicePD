@@ -1,5 +1,6 @@
 package ie.atu.gamestoremicroservicepd.service;
 
+import ie.atu.gamestoremicroservicepd.exception.NameConflictException;
 import ie.atu.gamestoremicroservicepd.model.Player;
 import ie.atu.gamestoremicroservicepd.repository.PlayerRepo;
 import jakarta.validation.Valid;
@@ -19,6 +20,12 @@ public class PlayerService {
     }
 
     public Player addPlayer(@Valid Player player){
+        players = playerRepo.findAll();
+        for(Player existing : players){
+            if(existing.getNickname().equals(player.getNickname())){
+                throw new NameConflictException("Player nickname already exists");
+            }
+        }
         playerRepo.save(player);
         return player;
     }
@@ -27,14 +34,22 @@ public class PlayerService {
         return playerRepo.findAll();
     }
 
-    public Player getPlayerById(long playerId){
-        return playerRepo.findByPlayerId(playerId);
+    public Player getByPlayerId(long playerId){
+        return playerRepo.getByPlayerId(playerId);
     }
 
-    public double addCredit(double credit, Long playerId){
+    public List<Player> getByPlayerName(String playerName){
+        return playerRepo.getByPlayerName(playerName);
+    }
+
+    public Player getPlayerByNickname(String nickname){
+        return playerRepo.getByNickname(nickname);
+    }
+
+    /*public double addCredit(double credit, Long playerId){
         Player temp = playerRepo.findByPlayerId(playerId);
         temp.setCredit(temp.getCredit()+credit);
         playerRepo.save(temp);
         return temp.getCredit();
-    }
+    }*/
 }

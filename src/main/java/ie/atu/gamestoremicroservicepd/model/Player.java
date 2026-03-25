@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
@@ -21,14 +22,14 @@ public class Player {
     private Long playerId;
 
     @NotBlank(message = "Player name cannot be left blank.")
-    private String name;
+    private String playerName;
 
-    //@NotBlank(message = "Player nickname cannot be left blank.")
-    //private String nickname;
+    @NotBlank(message = "Player email cannot be left blank.")
+    @Email(message = "Player email must be a valid email.")
+    private String email;
+
+    @NotBlank(message = "Player nickname cannot be left blank.")
+    private String nickname;
 
     private double credit = 0;
-
-    //@NotBlank(message = "Email cannot be left blank.")
-    //private String email;
-
 }
