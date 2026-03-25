@@ -6,7 +6,6 @@ import ie.atu.gamestoremicroservicepd.repository.PlayerRepo;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,10 +45,10 @@ public class PlayerService {
         return playerRepo.getByNickname(nickname);
     }
 
-    /*public double addCredit(double credit, Long playerId){
-        Player temp = playerRepo.findByPlayerId(playerId);
+    public String addCredit(double credit, String nickname){
+        Player temp = playerRepo.getByNickname(nickname);
         temp.setCredit(temp.getCredit()+credit);
         playerRepo.save(temp);
-        return temp.getCredit();
-    }*/
+        return "Credit added successfully";
+    }
 }
