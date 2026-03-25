@@ -1,3 +1,9 @@
+/*
+    Game class, has values for a name, a price and a publisher
+    Games can be bought if the 'Player' entity has enough 'Credit' (credit >= price)
+    Game has a publisher, can be returned by publisher name
+*/
+
 package ie.atu.gamestoremicroservicepd.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,16 +23,16 @@ import lombok.Setter;
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY) //Hides id in JSON field
     private Long gameId;
 
     @NotBlank(message = "Game name cannot be left blank.")
     private String gameName;
 
     @Positive(message = "Game price must be greater than zero.")
-    @Max(value=100, message="Game price must be less than 100")
+    @Max(value=100, message="Game price must be less than 100") //Prevents pricing games too high
     private double price;
 
-    @NotBlank(message = "Game publisher cannot be left blank.")
+    @NotBlank(message = "Game publisher cannot be left blank.") //Allows for searching games by publisher
     private String publisher;
 }

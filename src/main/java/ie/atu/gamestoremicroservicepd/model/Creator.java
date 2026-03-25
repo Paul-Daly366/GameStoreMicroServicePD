@@ -1,3 +1,8 @@
+/*
+    Creator class, has values for Name and Email
+    Unfinished
+
+*/
 package ie.atu.gamestoremicroservicepd.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
