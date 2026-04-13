@@ -18,9 +18,15 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    @PostMapping
-    public ResponseEntity<Player> addPlayer(@RequestBody Player player) {
-        Player saved = playerService.addPlayer(player);
+    @GetMapping("/login-by-id/{playerId}")
+    public ResponseEntity<Player> addPlayerById(@PathVariable Long playerId) {
+        Player saved = playerService.addPlayerFromLoginMicroServiceByPlayerId(playerId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+    @GetMapping("/login-by-nickname/{nickname}")
+    public ResponseEntity<Player> addPlayerByNickname(@PathVariable String nickname) {
+        Player saved = playerService.addPlayerFromLoginMicroServiceByPlayerNickname(nickname);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
@@ -45,7 +51,7 @@ public class PlayerController {
     }
 
     @GetMapping("/addCredit/{nickname}&{credit}")
-    public ResponseEntity<String> addCredit(@PathVariable("nickname") String nickname,@PathVariable("credit") int credit) {
+    public ResponseEntity<String> addCredit(@PathVariable("nickname") String nickname,@PathVariable("credit") double credit) {
         return ResponseEntity.ok(playerService.addCredit(credit,nickname));
     }
 }
