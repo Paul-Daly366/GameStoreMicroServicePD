@@ -3,6 +3,7 @@ package ie.atu.gamestoremicroservicepd.service;
 import ie.atu.gamestoremicroservicepd.exception.NameConflictException;
 import ie.atu.gamestoremicroservicepd.model.Game;
 import ie.atu.gamestoremicroservicepd.repository.GameRepo;
+import ie.atu.gamestoremicroservicepd.repository.PlayerRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
