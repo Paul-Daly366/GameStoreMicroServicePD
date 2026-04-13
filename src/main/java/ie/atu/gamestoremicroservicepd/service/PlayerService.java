@@ -1,5 +1,7 @@
 package ie.atu.gamestoremicroservicepd.service;
 
+import ie.atu.gamestoremicroservicepd.client.PlayerClient;
+import ie.atu.gamestoremicroservicepd.controller.PlayerController;
 import ie.atu.gamestoremicroservicepd.exception.NameConflictException;
 import ie.atu.gamestoremicroservicepd.model.Player;
 import ie.atu.gamestoremicroservicepd.repository.PlayerRepo;
@@ -13,18 +15,35 @@ public class PlayerService {
 
     private List<Player> players;
     private final PlayerRepo playerRepo;
+    private final PlayerClient playerClient;
 
-    public PlayerService(PlayerRepo playerRepo) {
+    public PlayerService(PlayerRepo playerRepo, PlayerClient playerClient) {
         this.playerRepo = playerRepo;
+        this.playerClient = playerClient;
     }
 
-    public Player addPlayer(@Valid Player player){
+    public Player addPlayerFromLoginMicroServiceByPlayerId(Long playerId){
         players = playerRepo.findAll();
         for(Player existing : players){
-            if(existing.getNickname().equals(player.getNickname())){
-                throw new NameConflictException("Player nickname already exists");
+            if(existing.getPlayerId().equals(playerId)){
+                return existing;
             }
         }
+
+        Player player = playerClient.retrievePlayerByPlayerId(playerId);
+        playerRepo.save(player);
+        return player;
+    }
+
+    public Player addPlayerFromLoginMicroServiceByPlayerNickname(String nickname){
+        players = playerRepo.findAll();
+        for(Player existing : players){
+            if(existing.getNickname().equals(nickname)){
+                return existing;
+            }
+        }
+
+        Player player = playerClient.retrievePlayerByNickname(nickname);
         playerRepo.save(player);
         return player;
     }
