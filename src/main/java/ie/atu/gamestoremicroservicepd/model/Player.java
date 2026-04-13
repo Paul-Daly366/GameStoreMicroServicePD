@@ -21,7 +21,6 @@ import lombok.Setter;
 @Entity
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long playerId;
 
