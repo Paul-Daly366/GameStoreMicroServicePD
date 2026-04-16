@@ -31,28 +31,35 @@ public class OrderService {
         //orders = orderRepo.findAll();
         //Player not enough credit
 
+
+        // LOOPS ARE INCORRECT, FAILS AFTER FIRST ROUND OF for()
         for(Player currentPlayer : players){
             if(currentPlayer.getNickname().equals(purchaserNickname)){
                 for(Game currentGame : games){
                     if(currentGame.getGameName().equals(soldGame)){
-                        Order order = new Order();
-                        order.setPurchaserNickname(purchaserNickname);
-                        order.setGameCreatorName(currentGame.getPublisher());
-                        order.setSoldGame(soldGame);
-                        orderRepo.save(order);
-                        return "Purchase successful";
-                        //return "Function Success"; //Test sentence to test the if & for loops logic
+                        if(currentPlayer.getCredit()>=currentGame.getPrice()){
+                            currentPlayer.setCredit(currentPlayer.getCredit()-currentGame.getPrice());
+                            playerRepo.save(currentPlayer);
+                            Order order = new Order();
+                            order.setPurchaserNickname(purchaserNickname);
+                            order.setGameCreatorName(currentGame.getPublisher());
+                            order.setSoldGame(soldGame);
+                            orderRepo.save(order);
+                            return "Purchase successful";
+                        }
+                        else{ //Correct player & game, but not enough credit
+                            return "Purchase failed, not enough credit in account.";
+                        }
                     }
-                    else{
+                    else{ //Correct player, but incorrect game
                         return "Purchase failed, no game by that name in database.";
                     }
                 }
             }
-            else{
+            else{ //Incorrect player
                 return "Purchase failed, no player by that nickname in database.";
             }
         }
-
         return "Purchase failed, unknown error.";
     }
 
