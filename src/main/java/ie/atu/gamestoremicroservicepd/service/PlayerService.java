@@ -48,6 +48,17 @@ public class PlayerService {
         return player;
     }
 
+    public Player testFuncPostPlayer(@Valid Player player){
+        players = playerRepo.findAll();
+        for(Player existing : players){
+            if(existing.getNickname().equals(player.getNickname())){
+                throw new NameConflictException("Player nickname already exists");
+            }
+        }
+        playerRepo.save(player);
+        return player;
+    }
+
     public List<Player> getAllPlayers(){
         return playerRepo.findAll();
     }

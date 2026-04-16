@@ -30,6 +30,12 @@ public class PlayerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
+    @PostMapping
+    public ResponseEntity<Player> testFuncPostPlayer(@RequestBody Player player){
+        Player saved = playerService.testFuncPostPlayer(player);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Player>> getAllPlayers() {
         return ResponseEntity.status(HttpStatus.OK).body(playerService.getAllPlayers());
