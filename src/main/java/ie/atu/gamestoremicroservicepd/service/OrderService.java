@@ -12,7 +12,6 @@ import java.util.List;
 
 @Service
 public class OrderService {
-    private List<Order> orders;
     private List<Player> players;
     private List<Game> games;
     private OrderRepo orderRepo;
@@ -26,17 +25,19 @@ public class OrderService {
     }
 
     public String playerPurchaseGame(String purchaserNickname, String soldGame){
-        players = playerRepo.findAll();
-        games = gameRepo.findAll();
-        //orders = orderRepo.findAll();
-        //Player not enough credit
+        String result = "Unknown Error.";
+        boolean noGameFound = false; //Error handling booleans
+        boolean noPlayerFound = false; //I found the for loops difficult to save intended strings
+        boolean notEnoughCredit = false;
+        players = playerRepo.findAll(); //To find the correct player entity
+        games = gameRepo.findAll(); //To find the correct game entity
 
-
-        // LOOPS ARE INCORRECT, FAILS AFTER FIRST ROUND OF for()
         for(Player currentPlayer : players){
             if(currentPlayer.getNickname().equals(purchaserNickname)){
+                noPlayerFound = false;
                 for(Game currentGame : games){
                     if(currentGame.getGameName().equals(soldGame)){
+                        noGameFound = false;
                         if(currentPlayer.getCredit()>=currentGame.getPrice()){
                             currentPlayer.setCredit(currentPlayer.getCredit()-currentGame.getPrice());
                             playerRepo.save(currentPlayer);
@@ -45,22 +46,34 @@ public class OrderService {
                             order.setGameCreatorName(currentGame.getPublisher());
                             order.setSoldGame(soldGame);
                             orderRepo.save(order);
-                            return "Purchase successful";
+                            result = "Purchase successful";
+                            return result; //Rest of loop irrelevant, ends function here
                         }
                         else{ //Correct player & game, but not enough credit
-                            return "Purchase failed, not enough credit in account.";
+                            notEnoughCredit = true;
                         }
+                        break;
                     }
                     else{ //Correct player, but incorrect game
-                        return "Purchase failed, no game by that name in database.";
+                        noGameFound = true;
                     }
                 }
+                break;
             }
             else{ //Incorrect player
-                return "Purchase failed, no player by that nickname in database.";
+                noPlayerFound = true;
             }
         }
-        return "Purchase failed, unknown error.";
+        if(notEnoughCredit){
+            result = "Purchase failed, not enough credit in account.";
+        }
+        else if (noPlayerFound) {
+            result = "Purchase failed, no player by that nickname in database.";
+        }
+        else if (noGameFound) {
+            result = "Purchase failed, no game by that name in database.";
+        }
+        return result;
     }
 
     public List<Order> getAllOrders(){
@@ -71,12 +84,12 @@ public class OrderService {
         return orderRepo.getByOrderId(orderId);
     }
 
-    /*
-    public List<Order> getAllOrdersByPurchaserNickname(String purchaserNickname){
-        return orderRepo.getAllOrdersByPurchaserNickname(purchaserNickname);
+
+    public List<Order> getByPurchaserNickname(String purchaserNickname){
+        return orderRepo.getByPurchaserNickname(purchaserNickname);
     }
 
-    public List<Order> getAllOrdersOfSoldGame(String soldGame){
-        return orderRepo.getAllOrdersOfSoldGame(soldGame);
-    }*/
+    public List<Order> getBySoldGame(String soldGame){
+        return orderRepo.getBySoldGame(soldGame);
+    }
 }

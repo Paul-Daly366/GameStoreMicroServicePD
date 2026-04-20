@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface OrderRepo extends JpaRepository<Order,Long> {
     Order getByOrderId(Long orderId);
-    /*
-    List<Order> getAllOrdersByPurchaserNickname(String purchaserNickname);
-    List<Order> getBySoldGame(String soldGame);*/
+    List<Order> getByPurchaserNickname(String purchaserNickname);
+    List<Order> getBySoldGame(String soldGame);
 }
