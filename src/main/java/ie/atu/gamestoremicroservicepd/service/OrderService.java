@@ -12,7 +12,6 @@ import java.util.List;
 
 @Service
 public class OrderService {
-    private List<Order> orders;
     private List<Player> players;
     private List<Game> games;
     private OrderRepo orderRepo;
@@ -26,34 +25,55 @@ public class OrderService {
     }
 
     public String playerPurchaseGame(String purchaserNickname, String soldGame){
-        players = playerRepo.findAll();
-        games = gameRepo.findAll();
-        //orders = orderRepo.findAll();
-        //Player not enough credit
+        String result = "Unknown Error.";
+        boolean noGameFound = false; //Error handling booleans
+        boolean noPlayerFound = false; //I found the for loops difficult to save intended strings
+        boolean notEnoughCredit = false;
+        players = playerRepo.findAll(); //To find the correct player entity
+        games = gameRepo.findAll(); //To find the correct game entity
 
         for(Player currentPlayer : players){
             if(currentPlayer.getNickname().equals(purchaserNickname)){
+                noPlayerFound = false;
                 for(Game currentGame : games){
                     if(currentGame.getGameName().equals(soldGame)){
-                        Order order = new Order();
-                        order.setPurchaserNickname(purchaserNickname);
-                        order.setGameCreatorName(currentGame.getPublisher());
-                        order.setSoldGame(soldGame);
-                        orderRepo.save(order);
-                        return "Purchase successful";
-                        //return "Function Success"; //Test sentence to test the if & for loops logic
+                        noGameFound = false;
+                        if(currentPlayer.getCredit()>=currentGame.getPrice()){
+                            currentPlayer.setCredit(currentPlayer.getCredit()-currentGame.getPrice());
+                            playerRepo.save(currentPlayer);
+                            Order order = new Order();
+                            order.setPurchaserNickname(purchaserNickname);
+                            order.setGameCreatorName(currentGame.getPublisher());
+                            order.setSoldGame(soldGame);
+                            orderRepo.save(order);
+                            result = "Purchase successful";
+                            return result; //Rest of loop irrelevant, ends function here
+                        }
+                        else{ //Correct player & game, but not enough credit
+                            notEnoughCredit = true;
+                        }
+                        break;
                     }
-                    else{
-                        return "Purchase failed, no game by that name in database.";
+                    else{ //Correct player, but incorrect game
+                        noGameFound = true;
                     }
                 }
+                break;
             }
-            else{
-                return "Purchase failed, no player by that nickname in database.";
+            else{ //Incorrect player
+                noPlayerFound = true;
             }
         }
-
-        return "Purchase failed, unknown error.";
+        if(notEnoughCredit){
+            result = "Purchase failed, not enough credit in account.";
+        }
+        else if (noPlayerFound) {
+            result = "Purchase failed, no player by that nickname in database.";
+        }
+        else if (noGameFound) {
+            result = "Purchase failed, no game by that name in database.";
+        }
+        return result;
     }
 
     public List<Order> getAllOrders(){
@@ -64,12 +84,12 @@ public class OrderService {
         return orderRepo.getByOrderId(orderId);
     }
 
-    /*
-    public List<Order> getAllOrdersByPurchaserNickname(String purchaserNickname){
-        return orderRepo.getAllOrdersByPurchaserNickname(purchaserNickname);
+
+    public List<Order> getByPurchaserNickname(String purchaserNickname){
+        return orderRepo.getByPurchaserNickname(purchaserNickname);
     }
 
-    public List<Order> getAllOrdersOfSoldGame(String soldGame){
-        return orderRepo.getAllOrdersOfSoldGame(soldGame);
-    }*/
+    public List<Order> getBySoldGame(String soldGame){
+        return orderRepo.getBySoldGame(soldGame);
+    }
 }
