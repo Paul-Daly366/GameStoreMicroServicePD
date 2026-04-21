@@ -42,6 +42,16 @@ public class GameController {
 
     @GetMapping("/publisher/{publisher}")
     public ResponseEntity<List<Game>> getGamesByPublisher(@PathVariable("publisher") String publisher) {
-        return  ResponseEntity.ok(gameService.getGamesByPublisher(publisher));
+        return ResponseEntity.ok(gameService.getGamesByPublisher(publisher));
+    }
+
+    @GetMapping("/sales/{gameName}")
+    public ResponseEntity<String> getGameSales(@PathVariable("gameName") String gameName) {
+        return ResponseEntity.ok(gameService.getGameSales(gameName));
+    }
+
+    @GetMapping("/salesOfPublisher/{publisher}")
+    public ResponseEntity<String> getAllGameSalesOfPublisher(@PathVariable("publisher") String publisher) {
+        return ResponseEntity.ok(gameService.getAllGameSalesByPublisher(publisher));
     }
 }
