@@ -12,11 +12,14 @@ import java.util.List;
 
 @Service
 public class OrderService {
-    private List<Player> players;
-    private List<Game> games;
-    private OrderRepo orderRepo;
+
+    private final OrderRepo orderRepo;
     private final GameRepo gameRepo;
     private final PlayerRepo playerRepo;
+
+    List<Player> players;
+    List<Game> games;
+
 
     public OrderService(OrderRepo orderRepo, GameRepo gameRepo, PlayerRepo playerRepo) {
         this.orderRepo = orderRepo;

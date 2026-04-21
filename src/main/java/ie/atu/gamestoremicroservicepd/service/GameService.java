@@ -11,7 +11,9 @@ import java.util.List;
 public class GameService {
 
     private final GameRepo gameRepo;
-    private List<Game> games;
+
+    List<Game> games;
+
 
     public GameService(GameRepo gameRepo) {
         this.gameRepo = gameRepo;
@@ -59,7 +61,7 @@ public class GameService {
     public String getAllGameSalesByPublisher(String publisher){
         games = gameRepo.findAll();
         String fullSalesReport = String.format("%s sales: \n", publisher);
-        String tempString = "";
+        String tempString;
         for(Game game:games){
             if(game.getPublisher().equals(publisher)){
                 tempString = getGameSales(game.getGameName()) + "\n";

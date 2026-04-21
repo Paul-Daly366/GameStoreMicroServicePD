@@ -1,6 +1,5 @@
 /*
     Creator class, has values for Name and Email
-    Unfinished
 
 */
 package ie.atu.gamestoremicroservicepd.model;

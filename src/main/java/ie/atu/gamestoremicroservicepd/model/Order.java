@@ -1,6 +1,7 @@
 /*
     Order class, has values for associated player, creator, and purchased game
     Functions as a way to preserve player purchased games
+    Created when a player purchases a game, doesn't require validation as such
 */
 
 package ie.atu.gamestoremicroservicepd.model;
