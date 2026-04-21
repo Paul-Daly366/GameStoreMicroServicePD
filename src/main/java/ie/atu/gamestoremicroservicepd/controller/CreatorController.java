@@ -1,6 +1,7 @@
 package ie.atu.gamestoremicroservicepd.controller;
 
 import ie.atu.gamestoremicroservicepd.model.Creator;
+import ie.atu.gamestoremicroservicepd.model.Game;
 import ie.atu.gamestoremicroservicepd.service.CreatorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -43,5 +44,10 @@ public class CreatorController {
     @GetMapping("/email/{creatorEmail}")
     public ResponseEntity<Creator> getCreatorByEmail(@PathVariable("creatorEmail") String creatorEmail){
         return ResponseEntity.ok(creatorService.getCreatorByCreatorEmail(creatorEmail));
+    }
+
+    @GetMapping("/games/{creatorName}")
+    public ResponseEntity<List<Game>> getGamesByCreatorName(@PathVariable("creatorName") String creatorName){
+        return ResponseEntity.ok(creatorService.getAllGamesByCreator(creatorName));
     }
 }

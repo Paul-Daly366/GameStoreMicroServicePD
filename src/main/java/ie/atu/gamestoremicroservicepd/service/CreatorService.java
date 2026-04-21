@@ -2,20 +2,25 @@ package ie.atu.gamestoremicroservicepd.service;
 
 import ie.atu.gamestoremicroservicepd.exception.NameConflictException;
 import ie.atu.gamestoremicroservicepd.model.Creator;
+import ie.atu.gamestoremicroservicepd.model.Game;
 import ie.atu.gamestoremicroservicepd.repository.CreatorRepo;
+import ie.atu.gamestoremicroservicepd.repository.GameRepo;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CreatorService {
 
     private final CreatorRepo creatorRepo;
-    private List<Creator> creators = new ArrayList<>();
+    private final GameRepo gameRepo;
 
-    public CreatorService(CreatorRepo creatorRepo) {
+    List<Creator> creators;
+
+
+    public CreatorService(CreatorRepo creatorRepo, GameRepo gameRepo) {
         this.creatorRepo = creatorRepo;
+        this.gameRepo = gameRepo;
     }
 
     public Creator addCreator(Creator creator){
@@ -43,5 +48,9 @@ public class CreatorService {
 
     public Creator getCreatorByCreatorEmail(String email){
         return creatorRepo.getCreatorByCreatorEmail(email);
+    }
+
+    public List<Game> getAllGamesByCreator(String name){
+        return gameRepo.getGamesByPublisher(name);
     }
 }

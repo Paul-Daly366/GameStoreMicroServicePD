@@ -1,7 +1,6 @@
 package ie.atu.gamestoremicroservicepd.service;
 
 import ie.atu.gamestoremicroservicepd.client.PlayerClient;
-import ie.atu.gamestoremicroservicepd.controller.PlayerController;
 import ie.atu.gamestoremicroservicepd.exception.NameConflictException;
 import ie.atu.gamestoremicroservicepd.model.Player;
 import ie.atu.gamestoremicroservicepd.repository.PlayerRepo;
@@ -13,9 +12,11 @@ import java.util.List;
 @Service
 public class PlayerService {
 
-    private List<Player> players;
     private final PlayerRepo playerRepo;
     private final PlayerClient playerClient;
+
+    List<Player> players;
+
 
     public PlayerService(PlayerRepo playerRepo, PlayerClient playerClient) {
         this.playerRepo = playerRepo;
