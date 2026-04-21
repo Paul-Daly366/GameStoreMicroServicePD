@@ -85,11 +85,11 @@ public class OrderService {
     }
 
 
-    public List<Order> getByPurchaserNickname(String purchaserNickname){
-        return orderRepo.getByPurchaserNickname(purchaserNickname);
+    public List<Order> getAllByPurchaserNickname(String purchaserNickname){
+        return orderRepo.getAllByPurchaserNickname(purchaserNickname);
     }
 
-    public List<Order> getBySoldGame(String soldGame){
-        return orderRepo.getBySoldGame(soldGame);
+    public List<Order> getAllBySoldGame(String soldGame){
+        return orderRepo.getAllBySoldGame(soldGame);
     }
 }

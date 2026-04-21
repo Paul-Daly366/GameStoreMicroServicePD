@@ -18,7 +18,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY) //Hides id in JSON field
-    private Long OrderId;
+    private Long orderId;
 
     private String purchaserNickname;
 
