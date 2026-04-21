@@ -28,11 +28,21 @@ public class OrderController {
 
     @GetMapping("/orderId/{orderId}")
     public ResponseEntity<Order> getOrderById(@PathVariable Long orderId){
-        return ResponseEntity.ok(orderService.getOrderById(orderId));
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.getOrderById(orderId));
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Order>> getAllOrders(){
-        return ResponseEntity.ok(orderService.getAllOrders());
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.getAllOrders());
+    }
+
+    @GetMapping("/purchaserNickname/{purchaserNickname}")
+    public ResponseEntity<List<Order>> getAllOrdersByPurchaserNickname(@PathVariable String purchaserNickname){
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.getAllByPurchaserNickname(purchaserNickname));
+    }
+
+    @GetMapping("/soldGame/{soldGame}")
+    public ResponseEntity<List<Order>> getAllOrdersBySoldGame(@PathVariable String soldGame){
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.getAllBySoldGame(soldGame));
     }
 }
