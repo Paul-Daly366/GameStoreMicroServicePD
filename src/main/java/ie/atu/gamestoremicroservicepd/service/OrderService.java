@@ -41,6 +41,8 @@ public class OrderService {
                         if(currentPlayer.getCredit()>=currentGame.getPrice()){
                             currentPlayer.setCredit(currentPlayer.getCredit()-currentGame.getPrice());
                             playerRepo.save(currentPlayer);
+                            currentGame.setSales(currentGame.getSales() + 1);
+                            gameRepo.save(currentGame);
                             Order order = new Order();
                             order.setPurchaserNickname(purchaserNickname);
                             order.setGameCreatorName(currentGame.getPublisher());

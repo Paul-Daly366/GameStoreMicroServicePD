@@ -35,4 +35,6 @@ public class Game {
 
     @NotBlank(message = "Game publisher cannot be left blank.") //Allows for searching games by publisher
     private String publisher;
+
+    private int sales = 0;
 }
