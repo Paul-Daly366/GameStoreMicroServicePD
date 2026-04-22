@@ -17,22 +17,25 @@ public class DataLoader {
     @Bean
     CommandLineRunner loadData(PlayerRepo playerRepo, CreatorRepo creatorRepo, GameRepo gameRepo) {
         return args -> {
+            /*
+            //Test Code to create player entitys without openfeign
             if (playerRepo.count() == 0){
                 Player p1 = new Player();
                 p1.setPlayerName("Paul");
-                p1.setEmail("pd366@atu.ie");
+                p1.setEmail("pd366@store.ie");
                 p1.setNickname("Pd366");
                 p1.setCredit(40.0);
                 playerRepo.save(p1);
 
                 Player p2 = new Player();
                 p2.setPlayerName("Isabel");
-                p2.setEmail("ir7@atu.ie");
+                p2.setEmail("ir7@store.ie");
                 p2.setNickname("Ir7");
                 p2.setCredit(60.0);
                 playerRepo.save(p2);
                 System.out.println(" ~~~ Pre-made Player data loaded");
             }
+            */
             if(creatorRepo.count() == 0){
                 Creator c1 = new Creator();
                 c1.setCreatorName("Mojang");

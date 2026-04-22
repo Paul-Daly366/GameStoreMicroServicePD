@@ -26,29 +26,37 @@ public class PlayerService {
     //This method retrieves via playerId
     //This also checks that the incoming object doesn't already exist in the repository
     public Player addPlayerFromLoginMicroServiceByPlayerId(Long playerId){
+        Player playerRecieve = playerClient.retrievePlayerByPlayerId(playerId);
         players = playerRepo.findAll();
         for(Player existing : players){
-            if(existing.getPlayerId().equals(playerId)){
+            if(existing.getNickname().equals(playerRecieve.getNickname())){
                 return existing;
             }
         }
-
-        Player player = playerClient.retrievePlayerByPlayerId(playerId);
-        playerRepo.save(player);
-        return player;
+        Player saved = new  Player();
+        saved.setPlayerName(playerRecieve.getPlayerName());
+        saved.setEmail(playerRecieve.getEmail());
+        saved.setNickname(playerRecieve.getNickname());
+        saved.setCredit(playerRecieve.getCredit());
+        playerRepo.save(saved);
+        return saved;
     }
     //This method retrieves via nickname (also unique to each object)
     public Player addPlayerFromLoginMicroServiceByPlayerNickname(String nickname){
+        Player playerRecieve = playerClient.retrievePlayerByNickname(nickname);
         players = playerRepo.findAll();
         for(Player existing : players){
-            if(existing.getNickname().equals(nickname)){
+            if(existing.getNickname().equals(playerRecieve.getNickname())){
                 return existing;
             }
         }
-
-        Player player = playerClient.retrievePlayerByNickname(nickname);
-        playerRepo.save(player);
-        return player;
+        Player saved = new  Player();
+        saved.setPlayerName(playerRecieve.getPlayerName());
+        saved.setEmail(playerRecieve.getEmail());
+        saved.setNickname(playerRecieve.getNickname());
+        saved.setCredit(playerRecieve.getCredit());
+        playerRepo.save(saved);
+        return saved;
     }
 
     //Post method, for testing outside of OpenFeign communication
