@@ -20,13 +20,15 @@ public class OrderService {
     List<Player> players;
     List<Game> games;
 
-
     public OrderService(OrderRepo orderRepo, GameRepo gameRepo, PlayerRepo playerRepo) {
         this.orderRepo = orderRepo;
         this.gameRepo = gameRepo;
         this.playerRepo = playerRepo;
     }
 
+    //Method to create an order object, not a Post method
+    //Checks that the following are true: 1) Game exists, 2) Player exists, 3) Player has enough credit
+    //If all above are true, game is purchased, credit in player object decremented, and sales for game incremented
     public String playerPurchaseGame(String purchaserNickname, String soldGame){
         String result = "Unknown Error.";
         boolean noGameFound = false; //Error handling booleans
@@ -81,6 +83,7 @@ public class OrderService {
         return result;
     }
 
+    //Get methods
     public List<Order> getAllOrders(){
         return orderRepo.findAll();
     }
@@ -89,7 +92,7 @@ public class OrderService {
         return orderRepo.getByOrderId(orderId);
     }
 
-
+    //Get methods for retrieving orders by a specific player or a specific game
     public List<Order> getAllByPurchaserNickname(String purchaserNickname){
         return orderRepo.getAllByPurchaserNickname(purchaserNickname);
     }

@@ -23,6 +23,7 @@ public class CreatorService {
         this.gameRepo = gameRepo;
     }
 
+    //Post method, logic contained in this class
     public Creator addCreator(Creator creator){
         creators = creatorRepo.findAll();
         for(Creator existing : creators){
@@ -34,6 +35,7 @@ public class CreatorService {
         return creator;
     }
 
+    //Get methods
     public List<Creator> getAllCreators(){
         return creatorRepo.findAll();
     }
@@ -50,6 +52,7 @@ public class CreatorService {
         return creatorRepo.getCreatorByCreatorEmail(email);
     }
 
+    //Get method for games by a specific publisher
     public List<Game> getAllGamesByCreator(String name){
         return gameRepo.getGamesByPublisher(name);
     }
