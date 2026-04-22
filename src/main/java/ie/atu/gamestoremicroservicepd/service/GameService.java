@@ -62,7 +62,7 @@ public class GameService {
 
     public String getAllGameSalesByPublisher(String publisher){
         games = gameRepo.findAll();
-        String fullSalesReport = String.format("%s sales: \n", publisher);
+        String fullSalesReport = String.format("%s Sales Report \n\n", publisher);
         String tempString;
         for(Game game:games){
             if(game.getPublisher().equals(publisher)){
