@@ -17,12 +17,14 @@ public class PlayerService {
 
     List<Player> players;
 
-
     public PlayerService(PlayerRepo playerRepo, PlayerClient playerClient) {
         this.playerRepo = playerRepo;
         this.playerClient = playerClient;
     }
 
+    //Methods to retrieve players from another microservice
+    //This method retrieves via playerId
+    //This also checks that the incoming object doesn't already exist in the repository
     public Player addPlayerFromLoginMicroServiceByPlayerId(Long playerId){
         players = playerRepo.findAll();
         for(Player existing : players){
@@ -35,7 +37,7 @@ public class PlayerService {
         playerRepo.save(player);
         return player;
     }
-
+    //This method retrieves via nickname (also unique to each object)
     public Player addPlayerFromLoginMicroServiceByPlayerNickname(String nickname){
         players = playerRepo.findAll();
         for(Player existing : players){
@@ -49,6 +51,7 @@ public class PlayerService {
         return player;
     }
 
+    //Post method, for testing outside of OpenFeign communication
     public Player testFuncPostPlayer(@Valid Player player){
         players = playerRepo.findAll();
         for(Player existing : players){
@@ -60,6 +63,7 @@ public class PlayerService {
         return player;
     }
 
+    //Get methods
     public List<Player> getAllPlayers(){
         return playerRepo.findAll();
     }
@@ -76,6 +80,7 @@ public class PlayerService {
         return playerRepo.getByNickname(nickname);
     }
 
+    //Method to alter credit in player object, real code would communicate with a money microservice
     public String addCredit(double credit, String nickname){
         Player temp = playerRepo.getByNickname(nickname);
         temp.setCredit(temp.getCredit()+credit);

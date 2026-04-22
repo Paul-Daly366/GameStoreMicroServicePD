@@ -14,11 +14,11 @@ public class GameService {
 
     List<Game> games;
 
-
     public GameService(GameRepo gameRepo) {
         this.gameRepo = gameRepo;
     }
 
+    //Post method, logic contained in this class
     public Game addGame(Game game){
         //Confirm the name doesn't already exist
         //Not allowing multiples games with the same name, for copyright and player ease of use
@@ -32,6 +32,7 @@ public class GameService {
         return game;
     }
 
+    //Get methods
     public List<Game> getAllGames(){
         return gameRepo.findAll();
     }
@@ -48,6 +49,7 @@ public class GameService {
         return gameRepo.getGamesByPublisher(publisher);
     }
 
+    //Get methods for sales values
     public String getGameSales(String gameName){
         games = gameRepo.findAll();
         for(Game game:games){
